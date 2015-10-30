@@ -25,7 +25,7 @@ You might be thinking that there is little benefit to RequireJS. After all, you 
 Every time the browser loads in a file you've referenced in a `<script>` tag, it makes an HTTP request to load the file's contents. It has to make a new HTTP request for each file you want to load, which causes problems.
 
 - Browsers are limited in how many parallel requests they can make, so often it's slow to load multiple files, as it can only do a certain number at a time. This number depends on the user's settings and browser, but is usually around 4-8. When working on Backbone applications it's good to split your app into multiple JS files, so it's easy to hit that limit quickly. This can be negated by minifying your code into one file as part of a build process, but does not help with the next point.
-- Scripts are loaded synchronously. This means that the browser cannot continue page rendering while the script is loading, .
+- Scripts are loaded synchronously. This means that the browser cannot continue page rendering while the script is loading.
 
 What tools like RequireJS do is load scripts asynchronously. This means we have to adjust our code slightly, you can't just swap out `<script>` elements for a small piece of RequireJS code, but the benefits are very worthwhile:
 
@@ -160,7 +160,7 @@ The main reason you'd want to configure RequireJS is to add shims, which we'll c
 
 ##### RequireJS Shims
 
-Ideally, each library that we use with RequireJS will come with AMD support. That is, it uses the `define` method to define the library as a module. However, some libraries - including Backbone and one of its dependencies, Underscore - don't do this. Fortunately RequireJS comes with a way to work around this.
+Ideally, each library that we use with RequireJS will come with AMD support. That is, it uses the `define` method to define the library as a module. While Backbone and Underscore have added AMD support in recent years, we're going to show an example of how to shim a library that does not using RequireJS.
 
 To demonstrate this, first let's shim Underscore, and then we'll shim Backbone too. Shims are very simple to implement:
 

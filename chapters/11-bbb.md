@@ -12,7 +12,7 @@ This is where boilerplate solutions are useful. Rather than having to manually w
 
 ![](img/bbb.png)
 
-Out of the box, BB and Grunt-BBB provide provide us with:
+Out of the box, BB and Grunt-BBB provide us with:
 
 * Backbone, [Lodash](https://github.com/bestiejs/lodash) (an [Underscore.js](http://underscorejs.org/) alternative) and [jQuery](http://jquery.com) with an [HTML5 Boilerplate](http://html5boilerplate.com) foundation
 * Boilerplate and scaffolding support, allowing us to spend minimal time writing boilerplate for modules, collections and so on.
@@ -31,7 +31,7 @@ Notes on build tool steps:
 
 To get started we're going to install Grunt-BBB, which will include Backbone Boilerplate and any third-party dependencies it might need such as the Grunt build tool.
 
-We can install Grunt-bBB via NPM by running:
+We can install Grunt-BBB via NPM by running:
 
 ```shell
 npm install -g bbb
@@ -453,7 +453,7 @@ define([
 ],
 
 // Map dependencies from above array.
-function(app) {
+function(app, Store) {
 
   // Create a new module.
   var Foo = app.module();

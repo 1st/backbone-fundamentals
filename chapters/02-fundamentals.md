@@ -28,7 +28,7 @@ Martin Fowler has done an excellent job of writing about the [origins](http://ma
 
 ### MVC Applied To The Web
 
-The web heavily relies on the HTTP protocol, which is stateless. This means that there is not a constantly open connection between the browser and server; each request instantiates a new communication channel between the two. Once the request initiator (e.g. a browser) gets a response the connection is closed. This fact creates a completely different context when compared to the one of the operating systems on which many of the original MVC ideas were developed. The MVC implementation has to conform to the web context.
+The web heavily relies on the HTTP protocol, which is stateless. This means that there is not a constantly open connection between the browser and server; each request instantiates a new communication channel between the two. Once the request initiator (e.g. a browser) gets a response the connection is closed. This fact creates a completely different context when compared to one of the operating systems on which many of the original MVC ideas were developed. The MVC implementation has to conform to the web context.
 
 An example of a server-side web application framework which tries to apply MVC to the web context is [Ruby On Rails](http://guides.rubyonrails.org/).
 
@@ -40,9 +40,9 @@ At its core are the three MVC components we would expect - the Model, View and C
 * Views represent your user interface, often taking the form of HTML that will be sent down to the browser. They're used to present application data to anything making requests from your application.
 * Controllers offer the glue between models and views. Their responsibility is to process requests from the browser, ask your models for data and then supply this data to views so that they may be presented to the browser.
 
-Although there's a clear separation of concerns that is MVC-like in Rails, it is actually using a different pattern called [Model2](http://en.wikipedia.org/wiki/Model2). One reason for this is that Rails does not notify views from the model or controllers - it just passes model data directly to the view.
+Although there's a clear separation of concerns that is MVC-like in Rails, it is actually using a different pattern called [Model2](https://en.wikipedia.org/wiki/JSP_model_2_architecture). One reason for this is that Rails does not notify views from the model or controllers - it just passes model data directly to the view.
 
-That said, even for the server-side workflow of receiving a request from a URL, baking out an HTML page as a response and separating your business logic from your interface has many benefits. In the same way that keeping your UI cleanly separate from your database records is useful in server-side frameworks, it's equally as useful to keep your UI cleanly separated from your data models in JavaScript (as we will read more about shortly).
+That said, even for the server-side workflow of receiving a request from a URL, baking out an HTML page as a response and separating your business logic from your interface has many benefits. In the same way that keeping your UI cleanly separated from your database records is useful in server-side frameworks, it's equally as useful to keep your UI cleanly separated from your data models in JavaScript (as we will read more about shortly).
 
 Other server-side implementations of MVC (such as the PHP [Zend](http://zend.com) framework) also implement the [Front Controller](http://en.wikipedia.org/wiki/Front_Controller_pattern) design pattern. This pattern layers an MVC stack behind a single point of entry. This single point of entry means that all HTTP requests (e.g., `http://www.example.com`, `http://www.example.com/whichever-page/`, etc.) are routed by the server's configuration to the same handler, independent of the URI.
 
@@ -60,7 +60,7 @@ The picture below shows this typical HTTP request/response lifecycle for server-
 
 ![](img/webmvcflow_bacic.png)
 
-The Server receives an HTTP request and routes it through a single entry point. At that entry point, the Front Controller analyzes the request and based on it invokes an Action of the appropriate Controller. This process is called routing. The Action Model is asked to return and/or save submitted data. The Model communicates with the data source (e.g., database or API). Once the Model completes its work it returns data to the Controller which then loads the appropriate View. The View executes presentation logic (loops through articles and prints titles, content, etc.) using the supplied data. In the end, an HTTP response is returned to the browser.
+The Server receives an HTTP request and routes it through a single entry point. At that entry point, the Front Controller analyzes the request and, based on it, invokes an Action of the appropriate Controller. This process is called routing. The Action Model is asked to return and/or save submitted data. The Model communicates with the data source (e.g., database or API). Once the Model completes its work it returns data to the Controller which then loads the appropriate View. The View executes presentation logic (loops through articles and prints titles, content, etc.) using the supplied data. In the end, an HTTP response is returned to the browser.
 
 ### Client-Side MVC & Single Page Apps
 
@@ -101,10 +101,12 @@ Our example will need a div element to which we can attach a list of Todo's. It 
   <div id="todo">
   </div>
   <script type="text/template" id="item-template">
-    <div>
+    <div class="view">
       <input id="todo_complete" type="checkbox" <%= completed ? 'checked="checked"' : '' %> />
-      <%= title %>
+      <label><%= title %></label>
+      <button class="destroy"></button>
     </div>
+    <input class="edit" value="<%= title %>">
   </script>
   <script src="jquery.js"></script>
   <script src="underscore.js"></script>
@@ -216,7 +218,7 @@ URL routing, DOM events (e.g., mouse clicks), and Model events (e.g., attribute 
 
 #### Models
 
-* The built-in capabilities of Models vary across frameworks; however, it's common for them to support validation of attributes, where attributes represent the properties of the Model, such as a Model identifier.
+* The built-in capabilities of Models vary across frameworks. However, it's common for them to support validation of attributes, where attributes represent the properties of the Model, such as a Model identifier.
 
 * When using Models in real-world applications we generally also need a way of persisting Models. Persistence allows us to edit and update Models with the knowledge that their most recent states will be saved somewhere, for example in a web browser's localStorage data-store or synchronized with a database.
 
@@ -251,7 +253,7 @@ Let's compare two examples of HTML templates. One is implemented using the popul
 
 ```html
 <div class="view">
-  <input class="toggle" type="checkbox" {{#if completed}} "checked" {{/if}}>
+  <input class="toggle" type="checkbox" {{#if completed}} checked {{/if}}>
   <label>{{title}}</label>
   <button class="destroy"></button>
 </div>
@@ -298,7 +300,7 @@ To summarize, the MVC pattern helps you keep your application logic separate fro
 
 Right now, you likely have a basic understanding of what the MVC pattern provides, but for the curious, we'll explore it a little further.
 
-The GoF (Gang of Four) do not refer to MVC as a design pattern, but rather consider it a "set of classes to build a user interface." In their view, it's actually a variation of three other classical design patterns: the Observer (Publish/Subscribe), Strategy, and Composite patterns. Depending on how MVC has been implemented in a framework, it may also use the Factory and Decorator patterns. I've covered some of these patterns in my other free book, "JavaScript Design Patterns For Beginners" if you would like to read about them further.
+The GoF (Gang of Four) do not refer to MVC as a design pattern, but rather consider it a "set of classes to build a user interface." In their view, it's actually a variation of three other classical design patterns: the Observer (Publish/Subscribe), Strategy, and Composite patterns. Depending on how MVC has been implemented in a framework, it may also use the Factory and Decorator patterns. I've covered some of these patterns in my other free book, "[JavaScript Design Patterns For Beginners](http://addyosmani.com/resources/essentialjsdesignpatterns/book)" if you would like to read about them further.
 
 As we've discussed, Models represent application data, while Views handle what the user is presented on screen. As such, MVC relies on Publish/Subscribe for some of its core communication (something that surprisingly isn't covered in many articles about the MVC pattern). When a Model is changed it "publishes" to the rest of the application that it has been updated. The "subscriber," generally a Controller, then updates the View accordingly. The observer-viewer nature of this relationship is what facilitates multiple Views being attached to the same Model.
 

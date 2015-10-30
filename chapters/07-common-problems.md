@@ -767,16 +767,16 @@ var Panel = Backbone.View.extend({
 
 var PanelAdvanced = Panel.extend({
   initialize: function(options){
-    Panel.prototype.initialize.call(this, [options]);
+    Panel.prototype.initialize.call(this, options);
     console.log('PanelAdvanced initialized');
     console.log(this.foo); // Log: bar
   }
 });
 
-// We can also inherit PanelAdvaned if needed
+// We can also inherit PanelAdvanced if needed
 var PanelAdvancedExtra = PanelAdvanced.extend({
   initialize: function(options){
-    PanelAdvanced.prototype.initialize.call(this, [options]);
+    PanelAdvanced.prototype.initialize.call(this, options);
     console.log('PanelAdvancedExtra initialized');
   }
 });
